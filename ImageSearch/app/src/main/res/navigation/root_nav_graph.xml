@@ -1,0 +1,29 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_nav_graph"
+    app:startDestination="@id/mainListFragment">
+
+    <fragment
+        android:id="@+id/mainListFragment"
+        android:name="ru.itis.imagesearch.presentation.main.MainListFragment"
+        tools:layout="@layout/fragment_main_list">
+
+        <action
+            android:id="@+id/action_image_to_image_details"
+            app:destination="@id/imageDetailsFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit"
+            app:popEnterAnim="@anim/fragment_close_enter"
+            app:popExitAnim="@anim/fragment_close_exit"  />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageDetailsFragment"
+        android:name="ru.itis.imagesearch.presentation.details.DetailsFragment"
+        tools:layout="@layout/fragment_details">
+
+    </fragment>
+
+</navigation>
