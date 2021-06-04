@@ -13,21 +13,18 @@ abstract class HistoryAppDatabase : RoomDatabase() {
     abstract fun historyDao(): HistoryDao
 
     companion object {
-
-        private const val DATABASE_NAME = "History.db"
-
-        @Volatile
         private var instance: HistoryAppDatabase? = null
-        private val LOCK = Any()
 
-        operator fun invoke(context: Context) = instance ?: synchronized(LOCK) {
-            buildDatabase(context).also { instance = it }
+        @Synchronized
+        fun get(context: Context): HistoryAppDatabase {
+            if (instance == null) {
+                instance = Room.databaseBuilder(
+                    context.applicationContext,
+                    HistoryAppDatabase::class.java, "History.db"
+                ).build()
+            }
+            return instance!!
         }
-
-        private fun buildDatabase(context: Context) =
-            Room.databaseBuilder(context, HistoryAppDatabase::class.java, DATABASE_NAME)
-                .fallbackToDestructiveMigration()
-                .build()
 
     }
 

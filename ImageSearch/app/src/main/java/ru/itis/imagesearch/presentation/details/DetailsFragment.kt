@@ -20,16 +20,18 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_details.*
 import kotlinx.coroutines.Dispatchers
+import ru.itis.imagesearch.App
 import ru.itis.imagesearch.R
 import ru.itis.imagesearch.data.api.ApiFactory
 import ru.itis.imagesearch.data.api.ImagesRepositoryImpl
 import ru.itis.imagesearch.data.api.response.Hit
 import ru.itis.imagesearch.domain.FindImagesUseCase
 import ru.itis.imagesearch.presentation.ViewModelFactory
+import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
 
-    lateinit var viewModel: DetailsViewModel
+    @Inject lateinit var viewModel: DetailsViewModel
     private val STORAGE_PERMISSION_CODE: Int = 1000
     private lateinit var urlImage: String
     private var state: Boolean = false
@@ -43,7 +45,9 @@ class DetailsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this, initFactory()).get(DetailsViewModel::class.java)
+        (activity?.application as App).appComponent.detFactory()
+            .create(this)
+            .inject(this)
         initSubscribes()
         initListeners()
     }
@@ -138,14 +142,6 @@ class DetailsFragment : Fragment() {
             return detailsFragment
         }
     }
-
-    private fun initFactory() = ViewModelFactory(
-            findCityUseCase = ApiFactory.imageApi.let {
-                ImagesRepositoryImpl(it, requireContext()).let {
-                    FindImagesUseCase(it, Dispatchers.IO)
-                }
-            }
-    )
 
 
 }
