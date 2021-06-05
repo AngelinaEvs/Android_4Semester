@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="112dp"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="20dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:id="@+id/similar_card_view"
+    app:cardElevation="6dp">
+
+        <ImageView
+            android:id="@+id/img_sim"
+            android:layout_width="112dp"
+            android:layout_height="168dp"
+            android:scaleType="centerCrop"
+            android:transitionName="image_item"
+            android:adjustViewBounds="true"
+            android:src="@drawable/city"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.cardview.widget.CardView>
